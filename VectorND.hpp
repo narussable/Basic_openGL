@@ -28,6 +28,7 @@ class VectorND {
         const double norma(void) const;
         double* p_ini(void) const; 
         double* p_end(void) const;
+        double axisAng(char, char);
         VectorND normalize(void) const;
 
         double  operator [] (int16_t) const;

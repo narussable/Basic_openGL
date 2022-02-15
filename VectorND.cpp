@@ -52,12 +52,12 @@ double* VectorND::p_end(void) const
 VectorND VectorND::normalize(void) const {
     VectorND out;
     out.initMem(n);
-    /*double sum = 0.0;
+    double sum = 0.0;
     for(auto it = 0; it<n; ++it)
         sum += (*(ini+it)) * (*(ini+it));
     double modCuad = invSqrd(sum);
     for(auto it = 0; it<n; ++it)
-        *(out.p_ini()+it) *= modCuad;*/
+        *(out.p_ini()+it) *= modCuad;
     return out;
 }
 
@@ -163,6 +163,46 @@ bool operator == (const VectorND& u, const VectorND& v) {
 
 bool operator != (const VectorND& u, const VectorND& v) 
 {  return !(u==v);  }
+
+double VectorND::axisAng(char ax1, char ax2){
+    int uno, dos;
+
+    switch (ax1){
+        case 'X': case 'x':
+            uno = 0;
+            break;
+        case 'Y': case 'y':
+            uno = 1;
+            break;
+        case 'Z': case 'z':
+            uno = 2;
+    }
+    switch (ax2){
+        case 'X': case 'x':
+            dos = 0;
+            break;
+        case 'Y': case 'y':
+            dos = 1;
+            break;
+        case 'Z': case 'z':
+            dos = 2;
+    }
+    double x = *(ini+uno), y = *(ini+dos), angle;
+    if (x > 0 && y >= 0)
+        angle = atan2(y, x);
+    else if (x == 0 && y > 0)
+        angle = M_PI / 2;
+    else if (x < 0)
+        angle = atan2(y, x) + M_PI;
+    else if (x == 0 && y < 0)
+        angle = 3 * M_PI / 2;
+    else if (x > 0 && y < 0)
+        angle = atan2(y, x) + 2 * M_PI;
+    else if (x == 0 && y == 0)
+        angle = 0;
+
+    return angle;
+}
 
 #ifdef FORMAT_VAR
 std::ostream& operator << (std::ostream& os, const VectorND& vecA) {
