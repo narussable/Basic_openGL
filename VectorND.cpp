@@ -126,6 +126,7 @@ VectorND operator % (const VectorND& u, const VectorND& v) {
 
 VectorND operator * (double       r, const VectorND& u) {
     VectorND out = u;
+    out.initMem(u.dim());
     for(auto it = 0; it<u.dim(); ++it)
         *(out.p_ini()+it) = *(u.p_ini()+it) * r;
     return out;
