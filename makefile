@@ -17,5 +17,6 @@ hpp:
 
 prueba:
 	$(Com) VectorND.hpp
-	$(Com) gohan.cpp VectorND.cpp
+	$(Com) geomGL.hpp
+	$(Com) gohan.cpp geomGL.cpp VectorND.cpp $(GL)
 	./a.out
